@@ -1,10 +1,14 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-
-import { api } from "~/utils/api";
-
+import { Noto_Sans } from "next/font/google";
 import "~/styles/globals.css";
+import { api } from "~/utils/api";
+const notoSans = Noto_Sans({
+  variable: "--noto-font",
+  weight: ["500", "400", "700", "600"],
+  subsets: ["cyrillic"],
+});
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +16,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <div className={notoSans.variable}>
+        <Component {...pageProps} />
+      </div>
     </SessionProvider>
   );
 };
