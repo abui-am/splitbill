@@ -23,7 +23,6 @@ export type CreateBillForm = {
   peoples: People[];
 };
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const formik = useFormik<CreateBillForm>({
     initialValues: {
       peoples: [createEmptyPeopleForm()],
@@ -42,25 +41,30 @@ const Home: NextPage = () => {
       <Layout>
         <FormikProvider value={formik}>
           <form>
-            {formik.values?.peoples?.map((people, index) => (
-              <div className="mb-6 rounded-lg border p-4" key={people.id}>
-                <PeopleForm people={people} name="peoples" index={index} />
-              </div>
-            ))}
-
-            <Button
-              variant="outlined"
-              type="button"
-              onClick={() => {
-                void formik.setFieldValue("peoples", [
-                  ...formik.values.peoples,
-                  createEmptyPeopleForm(),
-                ]);
+            <div
+              style={{
+                minHeight: "calc(100vh - 132px - 72px)",
               }}
             >
-              Tambah orang
-            </Button>
+              {formik.values?.peoples?.map((people, index) => (
+                <div className="mb-6 rounded-lg border p-4" key={people.id}>
+                  <PeopleForm people={people} name="peoples" index={index} />
+                </div>
+              ))}
 
+              <Button
+                variant="outlined"
+                type="button"
+                onClick={() => {
+                  void formik.setFieldValue("peoples", [
+                    ...formik.values.peoples,
+                    createEmptyPeopleForm(),
+                  ]);
+                }}
+              >
+                Tambah orang
+              </Button>
+            </div>
             <div className="sticky bottom-0 -mx-4">
               <SubmitBill />
             </div>
@@ -90,27 +94,3 @@ const SubmitBill = () => {
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};
