@@ -22,12 +22,14 @@ const PeopleForm = ({
         placeholder="Masukan nama"
         className="mb-4"
       />
-      <TextField
-        type="number"
+      <TextField.Number
         value={people.amount}
         name={`${name}.${index}.amount`}
         label="Jumlah"
-        onChange={formik.handleChange}
+        valueIsNumericString
+        onValueChange={(val) =>
+          formik.setFieldValue(`${name}.${index}.amount`, val.value)
+        }
         placeholder="Masukan jumlah"
       />
     </>
