@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const AppBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="sticky top-0 border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+    <nav className="sticky top-0 z-50 border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
       <div className="mx-auto flex w-full max-w-screen-xl flex-wrap items-center justify-between p-4 ">
         <a href="#" className="flex items-center">
           <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">

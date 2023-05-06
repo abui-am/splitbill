@@ -13,6 +13,7 @@ const Button = ({
 }) => {
   return (
     <button
+      type="button"
       className={clsx(
         className,
         "w-full rounded-lg  px-3 py-2",
